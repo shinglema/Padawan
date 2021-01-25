@@ -1,11 +1,38 @@
+import requests
+import random
+
+hangman_word="     "
+
+
+
+
+word_site = "https://www.mit.edu/~ecprice/wordlist.10000"
+
+response = requests.get(word_site)
+WORDS = response.content.splitlines()
+number_of_words =len(WORDS);
+
+while len(hangman_word)<=10:
+  
+    random_number = random.randint(1,number_of_words)
+    hangman_word=str(WORDS[random_number])
+    print(hangman_word)
+
+
+hangman_word=hangman_word[2:]
 guess_word=""
-hangman_word="AlphaOmega"
+
+hangman_word=hangman_word[2:]
 ##Setting up the values to be one case since python is case sensitive
 hangman_word=hangman_word.upper()
 hangman_word_list=list(hangman_word)
 letters_left_to_guess=-1;
 number_of_guesses=0;
 
+
+
+
+print (hangman_word[2:])
 print (len(hangman_word))
 
 
@@ -59,7 +86,7 @@ while letters_left_to_guess!=0:
     
         if guess_word_list[x]=='_':
             letters_left_to_guess=letters_left_to_guess+1
-
+#TEST
 #hangman_word_list[0]='X'
 
     print(hangman_word_list)
