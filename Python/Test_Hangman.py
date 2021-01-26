@@ -20,9 +20,10 @@ while len(hangman_word)<=10:
 
 
 hangman_word=hangman_word[2:]
+#=hangman_word[:-1:]
 guess_word=""
 
-hangman_word=hangman_word[2:]
+
 ##Setting up the values to be one case since python is case sensitive
 hangman_word=hangman_word.upper()
 hangman_word_list=list(hangman_word)
@@ -32,7 +33,7 @@ number_of_guesses=0;
 
 
 
-print (hangman_word[2:])
+print (hangman_word)
 print (len(hangman_word))
 
 
