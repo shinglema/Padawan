@@ -1,5 +1,7 @@
 import requests
 import random
+import urllib,json
+
 
 hangman_word="     "
 webster_word_link="https://www.merriam-webster.com/dictionary/"
@@ -13,7 +15,7 @@ response = requests.get(word_site)
 WORDS = response.content.splitlines()
 number_of_words =len(WORDS);
 
-while len(hangman_word)<=word_length:
+while not len(hangman_word)!=word_length:
   
     random_number = random.randint(1,number_of_words)
     hangman_word=str(WORDS[random_number])
@@ -66,4 +68,33 @@ while letters_left_to_guess!=0:
 
 print("The Word Was: ", hangman_word)
 webster_word_link=webster_word_link+hangman_word
-print("Visit This Link for the definition of the word: " ,webster_word_link)
+#print("Visit This Link for the definition of the word: " ,webster_word_link)
+
+
+
+api_call_link="https://dictionaryapi.com/api/v3/references/collegiate/json/"
+api_key='88ee957e-26a1-4172-ad6e-044054f9c251'
+api_call_full_link= api_call_link + hangman_word + "?key=" + api_key
+print (api_call_full_link)
+#Https://dictionaryapi.com/api/v3/references/collegiate/json/test?key=88ee957e-26a1-4172-ad6e-044054f9c251
+
+
+
+r = requests.get(url=api_call_full_link)
+test_json=str(r.json())
+test_json=test_json[1:]
+test_json=test_json[:-1:]
+data=json.load(test_json)
+for i in data['text']:
+        print (i)
+
+
+#x=json.loads(str(r.json))
+#print (x['text'])
+
+#url = api_call_full_link
+#response = urllib.request.urlopen(url)
+#data = json.loads(response.read())
+#y=json.loads(str(data))
+#print (y["text"])
+
