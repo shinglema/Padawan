@@ -1,0 +1,147 @@
+To Help Give an Example of Different Programming Principals used in Python
+---------------------------------------------------------------------------
+
+
+
+
+
+Comparison Operators
+--------------------------------------
+
+    == #(Equal to)
+    != #Not Equal To Same as <> in SQL
+
+
+
+
+Random number   
+--------------------------------------
+import random
+random_number=random.randint(number_to_start,number_to_end)
+
+
+Data Collection Types
+--------------------------------------
+
+
+    There are four collection data types in the Python programming language:
+
+    * List is a collection which is ordered and changeable. Allows duplicate members.
+
+    mylist = ["apple", "banana", "cherry"]
+
+
+    * Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+
+    mytuple = ("apple", "banana", "cherry")
+
+    * Set is a collection which is unordered and unindexed. No duplicate members.
+
+    myset = {"apple", "banana", "cherry"}
+
+    When choosing a collection type, it is useful to understand the properties of that type. Choosing the right type for a particular data set could mean retention of meaning, and, it could mean an increase in efficiency or security.
+
+    * Dictionary is a collection which is unordered and changeable. No duplicate members.
+
+        #<Dictionary>
+        thisdict = {
+        "brand": "Ford",
+        "model": "Mustang",
+        "year": 1964,
+        "owner": "John Doe",
+        "Dealership": "Ford"
+        }
+
+        #Changing the Value of the Owner to a New Owner
+        print('Previous Owner: ', thisdict["owner"])
+        thisdict["owner"]="John Doe Brown"
+        print('Current Owner: ', thisdict["owner"])
+        #</Dictionary>
+
+
+
+
+Dealing With Strings
+--------------------------------------
+    #UpperCase
+        string.upper() #Converts the entire string to uppercase
+    #LowerCase
+        string.lower() #Converts the entire string to lowercase
+
+
+
+Looping
+------------------------------------------------------
+
+    #While Loop
+    - - - - - - - - - - - - - - - - - - - - - - -
+    while not len(hangman_word)!=word_length:
+    
+        random_number = random.randint(1,number_of_words)
+        hangman_word=str(WORDS[random_number])
+        #print(hangman_word)
+
+    #For loop
+    for x in range(y):
+
+
+Conditional Statements
+------------------------------------------------------
+    if 1==1 then:
+
+    elif 2=2 then:
+
+
+Printing Long Text
+------------------------------------------------------
+    from pprint import pprint
+    pprint(text)
+
+
+Web Scrapping
+------------------------------------------------------
+    import httplib2
+    import urllib
+    import requests
+    import webbrowser
+
+    resp=requests.get('http://www.pluralsight.com') #Gets the data from the HTML Requests
+    print("Status Code:", resp.status_code, " Url: ", resp.url) #The return code from the http retreival
+    pprint(resp.headers)
+
+    html_data=resp.text #This is data that is return
+    html=data.decode('UTF-8') #The data needs to be encoded can be found by using resp.headers
+    pprint(html) (Printing out the text)
+
+    --BeautifulSoup ##A particular library used to help with scrapping from the web. 
+    from bs4 import BeautifulSoup
+
+        soup = BeautifulSoup(raw_html , 'lmxl')
+
+    BeautifulSoup Commands
+        soup.prettify() #This commands formats the html string to be pretty
+        soup.head
+        soup.title
+        soup.title.string #Converts the name of the title to a string
+        soup.title.name #Brings back the name of the tage
+        soup.body #Brings back all the text from a Soup Body
+        soup.a.parent #Brings back all the 
+
+
+Regular Expressions Search in Python
+------------------------------------------------------
+    import re ##Regular Expressions Library
+
+
+
+    re.match('word looking for', 'text to look in') #Only at the beginning
+    re.fullmatch('word looking for', 'text to look in') #Full Words
+    re.search('word looking for', 'text to look in') #Looks in anywhere, Returns first value. like In
+    re.findall('word looking for', 'text to look in') #Looks for words anywhere. All occurances
+    re.finditer('word looking for', 'text to look in')
+        for match in output:
+            print("'%s' is: '%s' and '%s' 
+            %(match.group(), match.start(), match.end()))
+         )
+
+    pattern=re.compile('\d) #Looks for patterns of decimals
