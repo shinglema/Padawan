@@ -11,28 +11,10 @@ let html_for_choices = `<label for="Choice">Notes:</label>
 function addTodo(text) {
     var mynewdate = new Date();
 
-
-    hours = mynewdate.getHours();
-    minutes = mynewdate.getUTCMinutes();
-    seconds = mynewdate.getSeconds();
-    timeString = hours.toString().padStart(2, '0') +
-        ':' + minutes.toString().padStart(2, '0') +
-        ':' + seconds.toString().padStart(2, '0');
-
-
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-
-
-
-
     const todo = {
         id: Date.now(),
         datefull: mynewdate,
-        datelogged: mynewdate.getMonth() + '/' + mynewdate.getDate() + '/' + mynewdate.getFullYear() + ' @ ' + strTime,
+        datelogged: mynewdate.getMonth() + '/' + mynewdate.getDate() + '/' + mynewdate.getFullYear() + '@' + mynewdate.getHours() + ':' + mynewdate.getMinutes() + '.' + mynewdate.getSeconds(),
         checked: false,
         taskItem: text,
         taskNotes: "",
@@ -55,8 +37,20 @@ function EnterToDo() {
 
     console.log('Print Me');
     let new_todo_item = document.getElementById("id_todo").value;
+    new_todo_item=new_todo_item.trim();
     console.log(new_todo_item);
-    addTodo(new_todo_item);
+    console.log('Length of New Item:' , new_todo_item.length);
+    
+    if(new_todo_item.length>0) {
+        addTodo(new_todo_item);
+        document.getElementById("id_todo").value='';
+
+    }else{
+
+        console.log("String Length is Too Small, value not entered");
+    }
+   
+
 
 
 }
@@ -66,7 +60,7 @@ function renderTodo_New() {
     let temp_html = '';
     let Todo_Count = 0;
     let temp_html2 = '';
-    let mychoice_val = document.getElementById('id_notes_choice').value;
+    let mychoice_val=document.getElementById('id_notes_choice').value;
 
     console.log('renderToDo_New Fired OFf');
     console.log('Length of Todo Array', todoItems.length);
@@ -93,15 +87,16 @@ function renderTodo_New() {
                 `
                  <tr><td><button onclick="DeleteTodo(${todoItems[i].id})" class="button1">Delete Task</button></td>
                  <td>${todoItems[i].datelogged}</td>
-                 <td><strong>${todoItems[i].taskItem}</strong></td>`;
+                 <td><strong>${todoItems[i].taskItem}</strong></td>` ;  
 
-            if (mychoice_val === "SeeNotes") {
-                temp_html2 = temp_html2 + `<td>${todoItems[i].taskNotes}</td>`;
-            } else {
-                temp_html2 = temp_html2 + `<td><textarea id="txt_area_${todoItems[i].id}" rows="2" cols="70">${todoItems[i].taskNotes}</textarea></td>`;
-            }
+                 if(mychoice_val==="SeeNotes"){
+                temp_html2 = temp_html2 +`<td>${todoItems[i].taskNotes}</td>` ;
+                 }
+                 else{
+                     temp_html2 = temp_html2 +`<td><textarea id="txt_area_${todoItems[i].id}" rows="2" cols="70">${todoItems[i].taskNotes}</textarea></td>` ;
+                 }
 
-            temp_html2 = temp_html2 + `<td><button onclick="UpDateTodoNotes(${todoItems[i].id})" class="button1">Update Notes</button></td>
+                 temp_html2 = temp_html2 + `<td><button onclick="UpDateTodoNotes(${todoItems[i].id})" class="button1">Update Notes</button></td>
                  </tr>
                 
                  `;
@@ -117,10 +112,10 @@ function renderTodo_New() {
     }
 
 
-
+    
 
     //let counter_html = `  <br></br><h4> Search: BI</h4>
-    //   <input id = "id_WhatAreYouLookingFor"></input><button onclick=" search_table()" class="button1">   Search</button><br></br>`;
+      //   <input id = "id_WhatAreYouLookingFor"></input><button onclick=" search_table()" class="button1">   Search</button><br></br>`;
     console.log(temp_html);
 
     //document.getElementById("col3").innerHTML=counter_html;
@@ -131,23 +126,23 @@ function renderTodo_New() {
     localStorage.setItem('todoItemsRef', JSON.stringify(todoItems));
 
 
-    if (mychoice_val != "SeeNotes") {
+ if(mychoice_val!="SeeNotes"){
 
-        for (i = 0; i < todoItems.length; i++) {
+    for (i = 0; i < todoItems.length; i++) {
 
-            if (todoItems[i].checked === false) {
-                document.getElementById('txt_area_' + todoItems[i].id).value = todoItems[i].taskNotes;
-
-
-
-            }
-
-
+        if (todoItems[i].checked === false) {
+            document.getElementById('txt_area_' + todoItems[i].id).value = todoItems[i].taskNotes;
 
 
 
         }
+
+
+
+
+
     }
+ }
 
 
 
@@ -201,15 +196,15 @@ function search_table() {
     filter = input.value.toUpperCase();
     table = document.getElementById("id_tbl_taskslist");
     tr = table.getElementsByTagName("tr");
-
+   
 
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td");
-
+   
         for (j = 0; j < td.length; j++) {
             let tdata = td[j];
-
+   
             if (tdata) {
                 if (tdata.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
