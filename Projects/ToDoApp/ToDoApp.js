@@ -9,6 +9,7 @@ let html_for_choices = `<label for="Choice">Notes:</label>
 
 
 function addTodo(text) {
+  var mynewdate = new Date();
       hours = mynewdate.getHours();
     minutes = mynewdate.getUTCMinutes();
     seconds = mynewdate.getSeconds();
